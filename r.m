@@ -1,12 +1,6 @@
-function matrix_r = r(q)
+function matrix_r = r(phi, theta, psi)
    
 %to get the rotation matrix for Z-X-Y euler transformation
-
-phi = q(1);
-theta = q(2);
-psi = q(3);
-
-
 
 comp_1 = (cos(psi)*cos(theta)) - (sin(phi)*sin(psi)*sin(theta));
 comp_2 = -(cos(phi)*cos(psi));
