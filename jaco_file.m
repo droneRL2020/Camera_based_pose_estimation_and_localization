@@ -24,8 +24,8 @@ U = [wm_x ; wm_y ; wm_z ; am_x ; am_y ; am_z];
  
 X_dot = x_t(X,U,N);
 
-A_t = jacobian(X_dot,X);
-U_t = jacobian(X_dot,N)
+A_t = getA(X_dot,X);
+V_t = getV(X_dot,N)
 
 %F_t = eye(15) + (A_t*dt);
 %V_t = U_t*dt;
