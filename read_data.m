@@ -21,7 +21,7 @@ for i=1:dimension
 end
 
 dem_data = size([data.t],2);
-dem_vicon = size(time_vicon,2)
+dem_vicon = size(time_vicon,2);
 vicon_ctr = 1;
 imu_data_ctr = 1;
 while true
@@ -57,6 +57,7 @@ while true
         p_dot_vicon = vicon_data(7:9);
         
         
+        
         % Calculate Jacobian
         
         % F = I + A*delta_t
@@ -74,6 +75,19 @@ while true
         
         
         % Update step
+        
+        
+        
+        
+        % swap and counter
+        q_prev = q;
+        q_dot_prev = q_dot;
+        p_double_dot_prev = p_double_dot;
+        
+        % vicon data
+        p_vicon_prev = p_vicon;
+        q_vicon_prev = q_vicon;
+        p_dot_vicon_prev = p_dot_vicon;
         
         
         imu_data_ctr = imu_data_ctr + 1;
