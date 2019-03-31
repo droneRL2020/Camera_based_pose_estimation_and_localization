@@ -41,7 +41,7 @@ while true
             delta_t = data(imu_data_ctr).t - data(imu_data_ctr-1).t;    
         end
         A_matrix = zeros(15,15);
-        B_matrix = zeros(15,15);
+        
         U_matrix = zeros(15,12);
         delta_t = data(imu_data_ctr).t;
         
@@ -52,6 +52,9 @@ while true
         
         % vicon data
         vicon_data = vicon(:,vicon_ctr);
+        p_vicon = vicon_data(1:3)
+        q_vicon = vicon_data(4:6)
+        p_dot_vi
         
         
         % Calculate Jacobian
@@ -63,6 +66,11 @@ while true
         V = U_matrix * delta_t;
         
         % Prediction step
+        
+        
+        
+        
+        
         
         
         % Update step
