@@ -52,9 +52,9 @@ while true
         % vicon data
         vicon_data = vicon(:,vicon_ctr);
         
-        
-        [sigma_t,x_dot] = EKF_KF(delta_t,x,vicon_data(1:12));
-        x = x_dot;
+        U_t = [q_dot; p_double_dot];
+        [sigma_t,mu_t] = EKF_KF(delta_t,x,U_t,vicon_data(1:12));
+        x = mu_t;
         % swap and counter
         q_prev = q;
         q_dot_prev = q_dot;
