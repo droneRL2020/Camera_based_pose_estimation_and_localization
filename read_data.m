@@ -54,6 +54,7 @@ while true
         
         U_t = [q_dot; p_double_dot];
         [sigma_t,mu_t] = EKF_KF(delta_t,x,U_t,vicon_data(1:12));
+        
         x = mu_t;
         % swap and counter
         q_prev = q;

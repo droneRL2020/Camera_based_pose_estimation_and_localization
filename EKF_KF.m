@@ -45,7 +45,7 @@ function [sigma_t,mu_t] = EKF_KF(dt,x,U,vicon)
     sigma_t_1 = (1e-3)*eye(15);
     %recompute
   %  x_dot = x_t(x,U,[0,0,0,0,0,0,0,0,0,0,0,0].');
-    [A_t, U_t, X_dot] = calc_jacobian(wm_x, wm_y, wm_z, am_x, am_y, am_z,px,py,pz,phi,theta,psi,p_dot_x,p_dot_y,p_dot_z,bg_x,bg_y,bg_z,ba_x, ba_y, ba_z);
+    [A_t, U_t, X_dot] = calc_jacobian() %(wm_x, wm_y, wm_z, am_x, am_y, am_z,px,py,pz,phi,theta,psi,p_dot_x,p_dot_y,p_dot_z,bg_x,bg_y,bg_z,ba_x, ba_y, ba_z);
     
    % A_t = getA(x_dot, x);
    % U_t = getU(x_dot, [0,0,0,0,0,0,0,0,0,0,0,0].');
