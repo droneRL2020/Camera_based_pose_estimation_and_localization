@@ -24,6 +24,7 @@ dem_data = size([data.t],2);
 dem_vicon = size(time_vicon,2);
 vicon_ctr = 1;
 imu_data_ctr = 1;
+x = [0 0 0.03 0 0 0 0 0 0 0 0 0 0 0 0].';
 while true
     if imu_data_ctr > dem_data | vicon_ctr > dem_vicon
         break
@@ -34,9 +35,7 @@ while true
         % match
         I = eye(15);
         if imu_data_ctr == 1
-            delta_t = data(imu_data_ctr).t;
-            
-            
+            delta_t = data(imu_data_ctr).t;      
         else
             delta_t = data(imu_data_ctr).t - data(imu_data_ctr-1).t;    
         end
@@ -52,42 +51,14 @@ while true
         
         % vicon data
         vicon_data = vicon(:,vicon_ctr);
-        p_vicon = vicon_data(1:3);
-        q_vicon = vicon_data(4:6);
-        p_dot_vicon = vicon_data(7:9);
         
         
-        
-        % Calculate Jacobian
-        
-        % F = I + A*delta_t
-        F = I + A_matrix*delta_t;
-        
-        % V = U * delta_t
-        V = U_matrix * delta_t;
-        
-        % Prediction step
-        
-        
-        
-        
-        
-        
-        
-        % Update step
-        
-        
-        
-        
+        [sigma_t,x_dot] = EKF_KF(delta_t,x,vicon_data(1:12));
+        x = x_dot;
         % swap and counter
         q_prev = q;
         q_dot_prev = q_dot;
         p_double_dot_prev = p_double_dot;
-        
-        % vicon data
-        p_vicon_prev = p_vicon;
-        q_vicon_prev = q_vicon;
-        p_dot_vicon_prev = p_dot_vicon;
         
         
         imu_data_ctr = imu_data_ctr + 1;
@@ -105,8 +76,8 @@ end
 
 
 
-% %%
-% figure('Name','Velocity');
+
+figure('Name','Velocity');
 % ax1 = subplot(3,1,1); % top subplot
 % ax2 = subplot(3,1,2); % middle subplot
 % ax3 = subplot(3,1,3); % bottom subplot
