@@ -127,7 +127,8 @@ function [mean_arr,cov_arr] = EKF(data,vicon,time_vicon,time_data,omg_imu,acc_im
 
         if data(imu_data_ctr).t == time_vicon(vicon_ctr) 
             % match
-            
+            disp("at imu counter")
+            imu_data_ctr
             if imu_data_ctr == 1
                 dt = data(imu_data_ctr).t;      
             else
@@ -139,40 +140,35 @@ function [mean_arr,cov_arr] = EKF(data,vicon,time_vicon,time_data,omg_imu,acc_im
             %disp('in the loop. the size of the subs')
             %size([mean.', omg_imu(:,imu_data_ctr).', acc_imu(:,imu_data_ctr).', [0 0 0 0 0 0 0 0 0 0 0 0]])
             
-            %A_cal = double(subs(A, ran,[mean.', omg_imu(:,imu_data_ctr).', acc_imu(:,imu_data_ctr).', [0 0 0 0 0 0 0 0 0 0 0 0]]));
-            A_cal = subs(A, ran,[mean.', omg_imu(:,imu_data_ctr).', acc_imu(:,imu_data_ctr).', [0 0 0 0 0 0 0 0 0 0 0 0]]);
-            %U_cal = double(subs(U, ran,[mean.', omg_imu(:,imu_data_ctr).', acc_imu(:,imu_data_ctr).', [0 0 0 0 0 0 0 0 0 0 0 0]]));
-            U_cal = subs(U, ran,[mean.', omg_imu(:,imu_data_ctr).', acc_imu(:,imu_data_ctr).', [0 0 0 0 0 0 0 0 0 0 0 0]]);
+            A_cal = double(subs(A, ran,[mean.', omg_imu(:,imu_data_ctr).', acc_imu(:,imu_data_ctr).', [0 0 0 0 0 0 0 0 0 0 0 0]]));
+            %A_cal = subs(A, ran,[mean.', omg_imu(:,imu_data_ctr).', acc_imu(:,imu_data_ctr).', [0 0 0 0 0 0 0 0 0 0 0 0]]);
+            U_cal = double(subs(U, ran,[mean.', omg_imu(:,imu_data_ctr).', acc_imu(:,imu_data_ctr).', [0 0 0 0 0 0 0 0 0 0 0 0]]));
+            %U_cal = subs(U, ran,[mean.', omg_imu(:,imu_data_ctr).', acc_imu(:,imu_data_ctr).', [0 0 0 0 0 0 0 0 0 0 0 0]]);
+            
             x_dot_cal = double(subs(x_dot, ran,[mean.', omg_imu(:,imu_data_ctr).', acc_imu(:,imu_data_ctr).', [0 0 0 0 0 0 0 0 0 0 0 0]]));
+            %x_dot_cal = subs(x_dot, ran,[mean.', omg_imu(:,imu_data_ctr).', acc_imu(:,imu_data_ctr).', [0 0 0 0 0 0 0 0 0 0 0 0]]);            
             x_cal = double(subs(x_vector, ran,[vicon(1:6,vicon_ctr).',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]]));
+            x_cal = subs(x_vector, ran,[vicon(1:6,vicon_ctr).',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]]);
             %use this for ques 2
             %x_cal = double(subs(x, ran,[[0 0 0 0 0 0], vicon(7:9,i).',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]]));   
             F = eye(15) + d_t * A_cal;
             Qd = d_tq * Q;
             z = C*x_cal;
 
-            pred_mean = mean + d_t*x_dot;
+            pred_mean = mean + d_t*x_dot_cal;
             pred_covar = F*covar*(F.') + U_cal*Qd*(U_cal.');
 
             K = pred_covar*(C.')*(inv(C*pred_covar*(C.') + R));
             
-            disp('size of z in the loop');
-            %size(mean)
-            z
-            size(z)
-            disp('A')
-            size(A_cal)
-            A_cal
-            
+%             
             mean = pred_mean + K*(z - (C*pred_mean));
-            covar = pred_covar - (K*C*pred_mean);
-            
-            disp('size of mean2 in the loop');
-            size(mean)
+%             covar = pred_covar - (K*C*pred_covar);
+%             
             
             mean_arr = [mean_arr; mean];
             cov_arr = [cov_arr; covar];
-
+            
+            
             imu_data_ctr = imu_data_ctr + 1;
             vicon_ctr = vicon_ctr + 1;
         else
