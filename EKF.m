@@ -1,4 +1,4 @@
-function [mean_arr,cov_arr] = EKF(data,vicon,time_vicon,time_data,omg_imu,acc_imu)
+function [mean_arr,cov_arr] = EKF2(data,vicon,time_vicon,time_data,omg_imu,acc_imu)
     %defining variables for x matrix
     syms x y z q_x q_y q_z v_x v_y v_z bg_x bg_y bg_z ba_x ba_y ba_z 
 
@@ -80,17 +80,14 @@ function [mean_arr,cov_arr] = EKF(data,vicon,time_vicon,time_data,omg_imu,acc_im
 
     %Defining C
 
-     C = [1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ; 
-          0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 ; 
-          0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 ;
-          0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 ; 
-          0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 ; 
-          0 0 0 0 0 1 0 0 0 0 0 0 0 0 0];
+     C = [0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 ; 
+          0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 ; 
+          0 0 0 0 0 0 0 0 1 0 0 0 0 0 0];
 
     %Defining Covariance Matrix
 
     Q = (1e-3)*eye(12);
-    R = (1e-3)*eye(6);
+    R = (1e-3)*eye(3);
     %d_t = dt * eye(15);
     %d_tq = dt * eye(12);
 
@@ -147,11 +144,12 @@ function [mean_arr,cov_arr] = EKF(data,vicon,time_vicon,time_data,omg_imu,acc_im
             
             x_dot_cal = double(subs(x_dot, ran,[mean.', omg_imu(:,imu_data_ctr).', acc_imu(:,imu_data_ctr).', [0 0 0 0 0 0 0 0 0 0 0 0]]));
             %x_dot_cal = subs(x_dot, ran,[mean.', omg_imu(:,imu_data_ctr).', acc_imu(:,imu_data_ctr).', [0 0 0 0 0 0 0 0 0 0 0 0]]);            
-            x_cal = double(subs(x_vector, ran,[vicon(1:6,vicon_ctr).',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]]));
+            %x_cal = double(subs(x_vector, ran,[vicon(1:6,vicon_ctr).',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]]));
             %x_cal = subs(x_vector, ran,[vicon(1:6,vicon_ctr).',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]]);
             
             %use this for ques 2
-            %x_cal = double(subs(x, ran,[[0 0 0 0 0 0], vicon(7:9,i).',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]]));   
+            x_cal = double(subs(x_vector, ran,[[0 0 0 0 0 0], vicon(7:9,vicon_ctr).',[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]]));   
+            
             F = eye(15) + d_t * A_cal;
             Qd = d_tq * Q;
             z = C*x_cal;
