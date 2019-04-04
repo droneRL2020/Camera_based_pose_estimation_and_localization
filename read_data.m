@@ -21,8 +21,6 @@ end
 %%
 [mean,cov] = EKF(data,vicon,time_vicon,omg_imu,acc_imu);
 
-
-
 %%
 plot3(mean(:,1),mean(:,2),mean(:,3))
 %%
@@ -66,7 +64,7 @@ while true
 
 end
 %%
-figure('Name','Velocity Predicted');
+figure('Name','Position Predicted');
 ax1 = subplot(3,1,1); % top subplot
 ax2 = subplot(3,1,2); % middle subplot
 ax3 = subplot(3,1,3); % bottom subplot
@@ -81,7 +79,7 @@ plot(ax3,[data.t],mean(:,3).');
 grid(ax3,'on');
 title(ax3,'Z');
 
-figure('Name','Velocity Vicon');
+figure('Name','Position Vicon');
 ax1 = subplot(3,1,1); % top subplot
 ax2 = subplot(3,1,2); % middle subplot
 ax3 = subplot(3,1,3); % bottom subplot
@@ -95,6 +93,26 @@ title(ax2,'Y');
 plot(ax3,[data.t],vicon_z.');
 grid(ax3,'on');
 title(ax3,'Z');
+
+%%
+figure('Name','Position X');
+plot([data.t],mean(:,1).');
+hold on;
+plot([data.t],vicon_x.');
+hold off;
+
+
+figure('Name','Position Y');
+plot([data.t],mean(:,2).');
+hold on;
+plot([data.t],vicon_y.');
+hold off;
+
+figure('Name','Position z');
+plot([data.t],mean(:,3).');
+hold on;
+plot([data.t],vicon_z.');
+hold off;
 
 % 
 % figure('Name','Orientation Predicted');
