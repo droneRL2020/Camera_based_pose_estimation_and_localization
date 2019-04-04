@@ -1,4 +1,4 @@
-function [mean_arr,cov_arr] = EKF2(data,vicon,time_vicon,time_data,omg_imu,acc_imu)
+function [mean_arr,cov_arr] = EKF(data,vicon,time_vicon,omg_imu,acc_imu)
     %defining variables for x matrix
     syms x y z q_x q_y q_z v_x v_y v_z bg_x bg_y bg_z ba_x ba_y ba_z 
 
