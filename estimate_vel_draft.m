@@ -25,6 +25,12 @@ function [vel, omg] = estimate_vel_draft(sensor)
         else
             prev_t = t; 
             prev_td = td;
+            points = detectFASTFeatures(sensor.img); 
+            points = points.selectStrongest(50); 
+            prev_points = points.Location;
+            tracker = vision.PointTracker('MaxBidirectionalError',0.7);
+            initialize(tracker,prev_points,sensor.img); 
+            
             [points, accuracy] = step(tracker, sensor.img);
             
             C=K\[double(points) ones(size(points,1),1)]';
@@ -38,7 +44,7 @@ function [vel, omg] = estimate_vel_draft(sensor)
             
             % H = Homogeneous Matrix from pose estimation
             
-            bigA=[];   bigB=[]; %finalA=[];  finalB=[];
+            A=[];   B=[];
     
             for j = 1:size(points,1) 
                 x=camera_points(j,1);   
@@ -50,7 +56,7 @@ function [vel, omg] = estimate_vel_draft(sensor)
                    opti_vel(j,1);
                    opti_vel(j,2)];
             end
-            V=bigA\bigB;
+            V=A\B;
             
             if(isempty(V))
                 vel=zeros(3,1);
