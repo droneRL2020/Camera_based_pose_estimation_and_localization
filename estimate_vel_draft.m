@@ -37,7 +37,7 @@ function [vel, omg] = estimate_vel_draft(sensor)
             camera_points=C(1:2,:)';
     
             C_prev=K\[double(prev_points) ones(size(prev_points,1),1)]';
-            prev_camera_points=C_prev(1:2,:)';
+            prev_camera_points = C_prev(1:2,:)';
             
             opti_vel=(camera_points-old_camera_points)/td;
     
