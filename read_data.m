@@ -19,8 +19,12 @@ for i=1:dimension
 end
 
 %%
-[mean,cov] = EKF(data,vicon,time_vicon,time_data,omg_imu,acc_imu);
-
+[mean,cov,rpy,vicon_arr,time_arr] = EKF(data,vicon,time_vicon,time_data,omg_imu,acc_imu);
+%%
+size(rpy)
+size(vicon_arr)
+size(time_arr)
+size(vicon_arr(:,1))
 %%
 
 figure('Name','orientation');
@@ -39,3 +43,22 @@ grid(ax3,'on');
 title(ax3,'Z');
 %%
 plot3(mean(:,1),mean(:,2),mean(:,3))
+%%
+figure('Name','roll');
+plot(time_arr,vicon_arr(:,1)) 
+hold on 
+plot(time_arr,rpy(:,1))
+hold off
+
+figure('Name','pitch');
+plot(time_arr,vicon_arr(:,1)) 
+hold on 
+plot(time_arr,rpy(:,2))
+hold off
+
+figure('Name','Yaw');
+plot(time_arr,vicon_arr(:,1)) 
+hold on 
+plot(time_arr,rpy(:,3))
+hold off
+
