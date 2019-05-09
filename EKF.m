@@ -47,6 +47,7 @@
             end
             
             rpy = compute_pose(data,imu_data_ctr);
+            [velocity_optical,omega_optical] = calculate_velo(data,vicon,time_vicon,time_data,omg_imu,acc_imu,imu_data_ctr,vicon_ctr)
             rpy_arr = [rpy_arr; rpy];
             vicon_arr = [vicon_arr;vicon(4,vicon_ctr) vicon(5,vicon_ctr) vicon(6,vicon_ctr)];
             time_arr = [time_arr;data(imu_data_ctr).t];
@@ -72,7 +73,6 @@
             x_dot_cal = x_d_v(mean(1), mean(2), mean(3), mean(4), mean(5), mean(6), mean(7), mean(8), mean(9), mean(10), mean(11), mean(12), mean(13), mean(14), mean(15), omg_imu(1,imu_data_ctr), omg_imu(2,imu_data_ctr), omg_imu(3,imu_data_ctr), acc_imu(1,imu_data_ctr), acc_imu(2,imu_data_ctr), acc_imu(3,imu_data_ctr), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
             x_cal = x_v(vicon(1,vicon_ctr), vicon(2,vicon_ctr), vicon(3,vicon_ctr), vicon(4,vicon_ctr), vicon(5,vicon_ctr), vicon(6,vicon_ctr),0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-
             %use this for ques 2
 
             F = eye(15) + d_t * A_cal;
