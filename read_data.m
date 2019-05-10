@@ -2,7 +2,7 @@ close all
 clear all
 clc
 %%load data from file and initilize
-load('./data/studentdata9.mat');
+load('./data/studentdata4.mat');
 init_script;
 %pose = struct('t',[],'p',[]);
 time_vicon=time;

@@ -47,9 +47,9 @@
             end
             
             rpy = compute_pose(data,imu_data_ctr);
-            [velocity_optical,omega_optical] = calculate_velo(data,vicon,time_vicon,time_data,omg_imu,acc_imu,imu_data_ctr,vicon_ctr)
+            [velocity_optical,omega_optical] = calculate_velo(data,vicon,time_vicon,time_data,omg_imu,acc_imu,imu_data_ctr,vicon_ctr);
             rpy_arr = [rpy_arr; rpy];
-            quat_vicon = eul2quat([vicon(6,vicon_ctr) vicon(5,vicon_ctr) vicon(4,vicon_ctr)]);
+            quat_vicon = eul2quat([vicon(4,vicon_ctr) vicon(5,vicon_ctr) vicon(6,vicon_ctr)]);
             vicon_arr = [vicon_arr;quat_vicon];
             time_arr = [time_arr;data(imu_data_ctr).t];
             %R = [pose(1,1) pose(1,2) pose(1,3);pose(2,1) pose(2,2) pose(2,3);pose(3,1) pose(3,2) pose(3,3)];
