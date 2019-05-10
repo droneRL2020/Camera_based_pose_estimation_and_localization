@@ -45,20 +45,20 @@ title(ax3,'Z');
 plot3(mean(:,1),mean(:,2),mean(:,3))
 %%
 figure('Name','roll');
-plot(time_arr,vicon_arr(:,1)) 
-hold on 
-plot(time_arr,rpy(:,1))
-hold off
-
-figure('Name','pitch');
-plot(time_arr,vicon_arr(:,1)) 
+plot(time_arr,vicon_arr(:,2)) 
 hold on 
 plot(time_arr,rpy(:,2))
 hold off
 
-figure('Name','Yaw');
-plot(time_arr,vicon_arr(:,1)) 
+figure('Name','pitch');
+plot(time_arr,vicon_arr(:,3)) 
 hold on 
 plot(time_arr,rpy(:,3))
+hold off
+
+figure('Name','Yaw');
+plot(time_arr,vicon_arr(:,4)) 
+hold on 
+plot(time_arr,rpy(:,4))
 hold off
 

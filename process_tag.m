@@ -77,7 +77,7 @@ function rpy = process_tag(data,ctr)
 %     pose = inv(cHw)*inv(bHc);
     
     %r = [pose(1,1) pose(1,2) pose(1,3);pose(2,1) pose(2,2) pose(2,3);pose(3,1) pose(3,2) pose(3,3)];
-    rpy = rotm2eul(rot);
+    rpy = rotm2quat(rot);
     
     %alpha = atan2d(pose(2,1),pose(1,1))
 %     k = [311.0520 0 201.8724;
