@@ -22,7 +22,7 @@ function rpy = process_tag(data,ctr)
         V_9 = V_9*(-1);
     end
     
-    h = [V_9(1) V_9(4) V_9(7);V_9(2) V_9(5) V_9(8);V_9(3) V_9(6) V_9(9)];
+    h = [V_9(1) V_9(2) V_9(3);V_9(4) V_9(5) V_9(6);V_9(7) V_9(8) V_9(9)];
     
     temp = k_inv * h;
     
