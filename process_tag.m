@@ -2,30 +2,13 @@ function [rpy,T] = process_tag(data,ctr)
     R = 0;
     T = 0;
     k = [311.0520 0 201.8724;0 311.3885 113.6210;0 0 1];
-%     k_inv = inv(k);
+    k_inv = inv(k);
     points = ["p0" "p1" "p2" "p3" "p4"];
     A = [];
     for i = 1:length(data(ctr).id)
         [p,q] = find_tag(data(ctr).id(i));
         for j = 1:5
-            [x,y] = tag_corner(p,q,points(j));
-            if points(j) == "p0"
-            world_cord = data(ctr).p0(:,i);
-            end
-            if points(j) == "p1"
-            world_cord = data(ctr).p1(:,i);
-            end
-            if points(j) == "p2"
-            world_cord = data(ctr).p2(:,i);
-            end
-            if points(j) == "p3"
-            world_cord = data(ctr).p3(:,i);
-            end
-            if points(j) == "p4"
-            world_cord = data(ctr).p4(:,i);
-            end  
-            x_c = world_cord(1);
-            y_c = world_cord(2);
+            [x,y,x_c,y_c] = tag_corner(data,ctr,p,q,points(j),i);
             A = [A(:,:);x y 1 0 0 0 -1*x_c*x -1*x_c*y -1*x_c;0 0 0 x y 1 -1*y_c*x -1*y_c*y -1*y_c];
         end
     end    
