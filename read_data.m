@@ -2,7 +2,7 @@ close all
 clear all
 clc
 %%load data from file and initilize
-load('./data/studentdata1.mat');
+load('./data/studentdata4.mat');
 
 %pose = struct('t',[],'p',[]);
 time_vicon=time;
@@ -86,7 +86,7 @@ hold off
 
 figure('Name','Wy');
 plot(time_arr,vicon_arr(:,11)) 
-hold on 
+hold on     
 plot(time_arr,vel_arr(:,5))
 hold off
 
