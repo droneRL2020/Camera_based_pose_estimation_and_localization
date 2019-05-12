@@ -18,41 +18,59 @@ for i=1:dimension
     acc_imu(:,i) = data(i).acc;
 end
 %%
-[pos,vicon_arr_pos,rpy,vicon_arr_angle,time_arr] = EKF(data,vicon,time_vicon,time_data,omg_imu,acc_imu);
+[pos_arr,vicon_arr_pos,rpy_arr,vicon_arr_ang,time_arr,velocity_optical,omega_optical,velo_vicon] = EKF(data,vicon,time_vicon,time_data,omg_imu,acc_imu);
 
 %%
-figure('Name','roll');
-plot(time_arr,vicon_arr_angle(:,1)) 
+% figure('Name','roll');
+% plot(time_arr,vicon_arr_angle(:,1)) 
+% hold on 
+% plot(time_arr,rpy(:,2))
+% hold off
+% 
+% figure('Name','pitch');
+% plot(time_arr,vicon_arr_angle(:,2)) 
+% hold on 
+% plot(time_arr,rpy(:,3))
+% hold off
+% 
+% figure('Name','Yaw');
+% plot(time_arr,vicon_arr_angle(:,3)) 
+% hold on 
+% plot(time_arr,rpy(:,4))
+% hold off
+% 
+% figure('Name','X');
+% plot(time_arr,vicon_arr_pos(:,1)) 
+% hold on 
+% plot(time_arr,pos(:,1))
+% hold off
+% 
+% figure('Name','Y');
+% plot(time_arr,vicon_arr_pos(:,2)) 
+% hold on 
+% plot(time_arr,pos(:,2))
+% hold off
+% 
+% figure('Name','Z');
+% plot(time_arr,vicon_arr_pos(:,3)) 
+% hold on 
+% plot(time_arr,pos(:,3))
+% hold off
+% 
+% 
+figure('Name','Vx');
+plot(time_arr,velo_vicon(:,1)) 
 hold on 
-plot(time_arr,rpy(:,2))
+plot(time_arr,velo_arr_cam(:,1))
+hold off
+figure('Name','Vy');
+plot(time_arr,velo_vicon(:,2)) 
+hold on 
+plot(time_arr,velo_arr_cam(:,2))
+hold off
+figure('Name','Vz');
+plot(time_arr,velo_vicon(:,3)) 
+hold on 
+plot(time_arr,velo_arr_cam(:,3))
 hold off
 
-figure('Name','pitch');
-plot(time_arr,vicon_arr_angle(:,2)) 
-hold on 
-plot(time_arr,rpy(:,3))
-hold off
-
-figure('Name','Yaw');
-plot(time_arr,vicon_arr_angle(:,3)) 
-hold on 
-plot(time_arr,rpy(:,4))
-hold off
-
-figure('Name','X');
-plot(time_arr,vicon_arr_pos(:,1)) 
-hold on 
-plot(time_arr,pos(:,1))
-hold off
-
-figure('Name','Y');
-plot(time_arr,vicon_arr_pos(:,2)) 
-hold on 
-plot(time_arr,pos(:,2))
-hold off
-
-figure('Name','Z');
-plot(time_arr,vicon_arr_pos(:,3)) 
-hold on 
-plot(time_arr,pos(:,3))
-hold off
