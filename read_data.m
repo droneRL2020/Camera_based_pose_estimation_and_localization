@@ -18,59 +18,82 @@ for i=1:dimension
     acc_imu(:,i) = data(i).acc;
 end
 %%
-[pos_arr,vicon_arr_pos,rpy_arr,vicon_arr_ang,time_arr,velocity_optical,omega_optical,velo_vicon] = EKF(data,vicon,time_vicon,time_data,omg_imu,acc_imu);
-
+[pos_arr,vicon_arr,rpy_arr,vicon_arr_ang,time_arr,vel_arr] = EKF(data,vicon,time_vicon,time_data,omg_imu,acc_imu);
+%%
+size(pos_arr)
+size(vicon_arr)
 %%
 % figure('Name','roll');
-% plot(time_arr,vicon_arr_angle(:,1)) 
+% plot(time_arr,vicon_arr_ang(:,1)) 
 % hold on 
-% plot(time_arr,rpy(:,2))
+% plot(time_arr,rpy_arr(:,2))
 % hold off
 % 
 % figure('Name','pitch');
-% plot(time_arr,vicon_arr_angle(:,2)) 
+% plot(time_arr,vicon_arr_ang(:,2)) 
 % hold on 
-% plot(time_arr,rpy(:,3))
+% plot(time_arr,rpy_arr(:,3))
 % hold off
 % 
 % figure('Name','Yaw');
-% plot(time_arr,vicon_arr_angle(:,3)) 
+% plot(time_arr,vicon_arr_ang(:,3)) 
 % hold on 
-% plot(time_arr,rpy(:,4))
+% plot(time_arr,rpy_arr(:,4))
 % hold off
 % 
 % figure('Name','X');
-% plot(time_arr,vicon_arr_pos(:,1)) 
+% plot(time_arr,vicon_arr(:,1)) 
 % hold on 
-% plot(time_arr,pos(:,1))
+% plot(time_arr,pos_arr(:,1))
 % hold off
 % 
 % figure('Name','Y');
-% plot(time_arr,vicon_arr_pos(:,2)) 
+% plot(time_arr,vicon_arr(:,2)) 
 % hold on 
-% plot(time_arr,pos(:,2))
+% plot(time_arr,pos_arr(:,2))
 % hold off
 % 
 % figure('Name','Z');
-% plot(time_arr,vicon_arr_pos(:,3)) 
+% plot(time_arr,vicon_arr(:,3)) 
 % hold on 
-% plot(time_arr,pos(:,3))
+% plot(time_arr,pos_arr(:,3))
 % hold off
 % 
-% 
+
 figure('Name','Vx');
-plot(time_arr,velo_vicon(:,1)) 
+plot(time_arr,vicon_arr(:,7)) 
 hold on 
-plot(time_arr,velo_arr_cam(:,1))
+plot(time_arr,vel_arr(:,1))
 hold off
+
 figure('Name','Vy');
-plot(time_arr,velo_vicon(:,2)) 
+plot(time_arr,vicon_arr(:,8)) 
 hold on 
-plot(time_arr,velo_arr_cam(:,2))
+plot(time_arr,vel_arr(:,2))
 hold off
+
 figure('Name','Vz');
-plot(time_arr,velo_vicon(:,3)) 
+plot(time_arr,vicon_arr(:,9)) 
 hold on 
-plot(time_arr,velo_arr_cam(:,3))
+plot(time_arr,vel_arr(:,3))
 hold off
+
+figure('Name','Wx');
+plot(time_arr,vicon_arr(:,10)) 
+hold on 
+plot(time_arr,vel_arr(:,4))
+hold off
+
+figure('Name','Wy');
+plot(time_arr,vicon_arr(:,11)) 
+hold on 
+plot(time_arr,vel_arr(:,5))
+hold off
+
+figure('Name','Wz');
+plot(time_arr,vicon_arr(:,12)) 
+hold on 
+plot(time_arr,vel_arr(:,6))
+hold off
+
 
