@@ -2,7 +2,7 @@ close all
 clear all
 clc
 %%load data from file and initilize
-load('./data/studentdata4.mat');
+load('./data/studentdata1.mat');
 
 %pose = struct('t',[],'p',[]);
 time_vicon=time;
@@ -20,9 +20,9 @@ end
 %%
 [pos_arr,vicon_arr,rpy_arr,vicon_arr_ang,time_arr,vel_arr] = EKF(data,vicon,time_vicon,time_data,omg_imu,acc_imu);
 %%
-% size(pos_arr)
-% size(vicon_arr)
-% %
+size(pos_arr)
+size(vicon_arr)
+%%
 % figure('Name','roll');
 % plot(time_arr,vicon_arr_ang(:,1)) 
 % hold on 
@@ -58,7 +58,7 @@ end
 % hold on 
 % plot(time_arr,pos_arr(:,3))
 % hold off
-
+% 
 
 figure('Name','Vx');
 plot(time_arr,vicon_arr(:,7)) 
@@ -95,3 +95,5 @@ plot(time_arr,vicon_arr(:,12))
 hold on 
 plot(time_arr,vel_arr(:,6))
 hold off
+
+

@@ -1,9 +1,10 @@
-function [velocity_optical,omega_optical] = compute_vel(visiblePoints,valid_old_points,Z,wRc,dt)
+function [velocity_optical,omega_optical] = compute_vel(visiblePoints,valid_old_points,Z,dt)
     param = [311.0520 0 201.8724;0 311.3885 113.6210;0 0 1];
     
     len = size(visiblePoints);
     A = [];
     B = [];
+    C = [];
     for i=1:len(1)
         pos = [visiblePoints(i,1);visiblePoints(i,2);1];
         pos_n = inv(param)*pos;
@@ -20,14 +21,13 @@ function [velocity_optical,omega_optical] = compute_vel(visiblePoints,valid_old_
         u_dot = (u - u_)/dt;
         v_dot = (v - v_)/dt;
         a = [u_dot;v_dot];
-        
-        B = [B;-1/Z 0 u/Z (u*v) -1*(1+u*u) v;0 -1/Z v/Z (1+v*v) -1*(u*v) -1*u];
         A = [A;a];
+        b_ = [-1/Z 0 u/Z (u*v) -1*(1+u*u) v;0 -1/Z v/Z (1+v*v) -1*(u*v) -1*u];
+        B = [B;b_];
+%         C = [C;pinv(b_)*a;];
     end
-    
-
     C = (B.'*B)\(B.')*A;
-    
-    velocity_optical = wRc*C(1:3);
-    omega_optical = wRc*C(4:6);
+    C = -C
+    velocity_optical = C(1:3);
+    omega_optical = C(4:6);
 end

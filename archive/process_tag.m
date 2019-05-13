@@ -1,4 +1,4 @@
-function [rpy,T,wZc,wRc] = process_tag(data,ctr)
+function [rpy,T] = process_tag(data,ctr)
     R = 0;
     T = 0;
     k = [311.0520 0 201.8724;0 311.3885 113.6210;0 0 1];
@@ -59,8 +59,6 @@ function [rpy,T,wZc,wRc] = process_tag(data,ctr)
      wHb = wHc*cHb;
 
     T = (wHb(1:3,4))';
-    wZc = wTc(3);
-    wRc = R.';
     
     rpy = rotm2quat(rot);
 
