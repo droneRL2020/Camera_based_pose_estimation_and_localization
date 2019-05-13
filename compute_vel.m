@@ -19,14 +19,15 @@ function [velocity_optical,omega_optical] = compute_vel(visiblePoints,valid_old_
         v_ = prev_pos_n(2);
         
         u_dot = (u - u_)/dt;
-        v_dot = (u - v_)/dt;
+        v_dot = (v - v_)/dt;
         a = [u_dot;v_dot];
-        A = a;
-        B = [-1/Z 0 u/Z (u*v) -1*(1+u*u) v;0 -1/Z v/Z (1+v*v) -1*(u*v) -1*u];
-        C = [C;pinv(B)*A];
+        A = [A;a];
+        b_ = [-1/Z 0 u/Z (u*v) -1*(1+u*u) v;0 -1/Z v/Z (1+v*v) -1*(u*v) -1*u];
+        B = [B;b_];
+%         C = [C;pinv(b_)*a;];
     end
-
-    %C = pinv(B)*A;
+    C = (B.'*B)\(B.')*A;
+    C = -C
     velocity_optical = C(1:3);
     omega_optical = C(4:6);
 end

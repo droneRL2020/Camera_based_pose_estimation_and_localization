@@ -42,11 +42,17 @@
             %velo_vicon = [velo_vicon;vel_vicon(7,vicon_ctr) vel_vicon(8,vicon_ctr) vel_vicon(9,vicon_ctr)];
             
    
-            [velocity_optical,omega_optical,points] = calculate_velo(data,imu_data_ctr,points,T,dt);
-            %[velocity_optical,omega_optical] = calculate_velo(data,imu_data_ctr,T,dt);
+            %[velocity_optical,omega_optical,points] = calculate_velo(data,imu_data_ctr,points,T,dt);
+            [velocity_optical,omega_optical] = calculate_velo(data,imu_data_ctr,T,dt);
             vel_arr = [vel_arr;velocity_optical(1) velocity_optical(2) velocity_optical(3) omega_optical(1) omega_optical(2) omega_optical(3)];
+            
+            
             imu_data_ctr = imu_data_ctr + 1;
             vicon_ctr = vicon_ctr + 1;
+%             if imu_data_ctr == 3
+%                 break
+%             end
+            
         else
             % not match
             vicon_ctr = vicon_ctr + 1;
