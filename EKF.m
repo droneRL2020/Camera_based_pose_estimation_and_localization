@@ -1,4 +1,4 @@
-    function [mean_arr,cov_arr] = EKF(data,on_board_cam,time_data,omg_imu,acc_imu)
+    function [mean_arr,cov_arr] = EKF(data,on_board_cam,omg_imu,acc_imu)
  
     %Defining C
 
