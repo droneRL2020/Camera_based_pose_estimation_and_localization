@@ -21,8 +21,8 @@ end
 [pos_arr,vicon_arr,rpy_arr,vicon_arr_ang,time_arr,vel_arr] = EKF(data,vicon,time_vicon,time_data,omg_imu,acc_imu);
 %%
 % size(pos_arr)
-% size(vicon_arr)
-% %
+size(vel_arr)
+%%
 % figure('Name','roll');
 % plot(time_arr,vicon_arr_ang(:,1)) 
 % hold on 

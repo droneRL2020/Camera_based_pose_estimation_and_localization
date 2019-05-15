@@ -51,6 +51,12 @@
             % not match
             vicon_ctr = vicon_ctr + 1;
         end
-
-    end    
+    end
+%     B = 1/10*ones(10,1);
+%     vel_arr(:,1) = filter(B,1,vel_arr(:,1));
+%     vel_arr(:,2) = filter(B,1,vel_arr(:,2));
+%     vel_arr(:,3) = filter(B,1,vel_arr(:,3));
+%     vel_arr(:,4) = filter(B,1,vel_arr(:,4));
+%     vel_arr(:,5) = filter(B,1,vel_arr(:,5));
+%     vel_arr(:,6) = filter(B,1,vel_arr(:,6));
 end
