@@ -1,11 +1,11 @@
 function [velocity_optical,omega_optical,points] = calculate_velo(data,imu_data_ctr,old_points,T,wRc,dt)
-    p = detectMinEigenFeatures(data(imu_data_ctr).img);
-    points = p.Location;
+    p = detectFASTFeatures(data(imu_data_ctr).img);
+    points = p.selectStrongest(300).Location;
     if imu_data_ctr ~= 1
         prev_image = data(imu_data_ctr-1).img;
         image = data(imu_data_ctr).img;
         
-        pointTracker = vision.PointTracker('MaxBidirectionalError', 2);
+        pointTracker = vision.PointTracker('MaxBidirectionalError', 1);
         % point tracker initialization
         
         initialize(pointTracker,old_points,prev_image);
