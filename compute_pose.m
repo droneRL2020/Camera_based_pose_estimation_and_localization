@@ -1,9 +1,0 @@
-function [rpy,T,wZc,wRc] = compute_pose(data,ctr)
-    rpy = [0 0 0 0]; 
-    if data(ctr).is_ready == 1
-        if length(data(ctr).id) > 0
-            [rpy,T,wZc,wRc] = process_tag(data,ctr);
-        end
-        
-    end 
-end
